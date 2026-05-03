@@ -1,0 +1,81 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.vs": true,
+        "**/.gitmodules": true,
+        "**/.vsconfig": true,
+        "**/*.booproj": true,
+        "**/*.pidb": true,
+        "**/*.suo": true,
+        "**/*.user": true,
+        "**/*.userprefs": true,
+        "**/*.unityproj": true,
+        "**/*.dll": true,
+        "**/*.exe": true,
+        "**/*.pdf": true,
+        "**/*.mid": true,
+        "**/*.midi": true,
+        "**/*.wav": true,
+        "**/*.gif": true,
+        "**/*.ico": true,
+        "**/*.jpg": true,
+        "**/*.jpeg": true,
+        "**/*.png": true,
+        "**/*.psd": true,
+        "**/*.tga": true,
+        "**/*.tif": true,
+        "**/*.tiff": true,
+        "**/*.3ds": true,
+        "**/*.3DS": true,
+        "**/*.fbx": true,
+        "**/*.FBX": true,
+        "**/*.lxo": true,
+        "**/*.LXO": true,
+        "**/*.ma": true,
+        "**/*.MA": true,
+        "**/*.obj": true,
+        "**/*.OBJ": true,
+        "**/*.asset": true,
+        "**/*.cubemap": true,
+        "**/*.flare": true,
+        "**/*.mat": true,
+        "**/*.meta": true,
+        "**/*.prefab": true,
+        "**/*.unity": true,
+        "build/": true,
+        "Build/": true,
+        "Library/": true,
+        "library/": true,
+        "obj/": true,
+        "Obj/": true,
+        "Logs/": true,
+        "logs/": true,
+        "ProjectSettings/": true,
+        "UserSettings/": true,
+        "temp/": true,
+        "Temp/": true
+    },
+    
+    "dotnet.defaultSolution": "UnityTeach2_Demo.sln",
+    // ========== 复刻 VS2022 按;自动格式化核心设置 ==========
+// 打字实时格式化（按;触发）
+"editor.formatOnType": true,
+// 保存也格式化（保留）
+"editor.formatOnSave": true,
+// 换行自动格式化
+"editor.formatOnPaste": true,
+
+// C#专用格式化规则（和VS2022排版一致）
+"dotnet.formatting.organizeUsings": true,
+"dotnet.formatting.indentBraces": true,
+"dotnet.formatting.newLineForBraces": false,
+"dotnet.formatting.spaceAfterCommas": true,
+"dotnet.formatting.spaceAroundOperators": true,
+
+// 关键：按分号 ; 立刻触发格式化
+"[csharp]": {
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+}
+}
