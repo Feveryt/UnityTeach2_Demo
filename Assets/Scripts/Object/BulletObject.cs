@@ -1,67 +1,85 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletObject : MonoBehaviour
 {
-    private BulletInfo info;//用来寄存子弹数据的
+    private BulletInfo info;
     private float time;
-    
-    public void InitInfo(BulletInfo info)
+    private string resPath;      // 资源路径，回收时用来定位所属的池
+    private string deadEffRes;   // 死亡特效路径
+
+    /// <summary>初始化（替代原来的 InitInfo）</summary>
+    public void InitInfo(BulletInfo info, string resPath)
     {
         this.info = info;
-        Invoke("DealyDestroy", info.lifeTime);
+        this.resPath = resPath;
+        this.deadEffRes = info.deadEffRes;
+        time = 0;
+
+        CancelInvoke();
+        Invoke(nameof(DelayReturn), info.lifeTime);
     }
-    private void DealyDestroy()
-    {
-        Destroy(this.gameObject);
-    }
+
+    private void DelayReturn() => ReturnToPool();
+
+    /// <summary>子弹死亡：生成特效并回收自身</summary>
     public void Dead()
     {
-        GameObject effObj = Instantiate(Resources.Load<GameObject>(info.deadEffRes));
-        effObj.transform.position = this.transform.position;
-        Destroy(effObj, 1f);
-        Destroy(this.gameObject);
+        // 从特效池获取死亡特效
+        GameObject eff = BulletPoolManager.Instance.GetEffect(deadEffRes, transform.position, Quaternion.identity);
 
+        // 挂载自动回收组件（如果已有则直接 Init）
+        if (!eff.TryGetComponent<EffectAutoRecycler>(out var recycler))
+            recycler = eff.AddComponent<EffectAutoRecycler>();
+        recycler.Init(deadEffRes, 1f);
+
+        ReturnToPool();
     }
+
+    private void ReturnToPool()
+    {
+        CancelInvoke();
+        BulletPoolManager.Instance.ReleaseBullet(resPath, gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            PlayerObject player = other.gameObject.GetComponent<PlayerObject>();
-            player.Wound();
-            this.Dead();
+            other.GetComponent<PlayerObject>()?.Wound();
+            Dead();
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        this.transform.Translate(Vector3.forward * info.forwardSpeed * Time.deltaTime);
-        //1直线
-        //2曲线
-        //3右抛物线
-        //4左抛物线
-        //5跟踪导弹
+        transform.Translate(Vector3.forward * info.forwardSpeed * Time.deltaTime);
 
         switch (info.type)
         {
             case 2:
                 time += Time.deltaTime;
-                this.transform.Translate(Vector3.right * Mathf.Sin(time * info.roundSpeed) * info.rightSpeed * Time.deltaTime);
+                transform.Translate(Vector3.right * Mathf.Sin(time * info.roundSpeed) * info.rightSpeed * Time.deltaTime);
                 break;
             case 3:
-                this.transform.rotation *= Quaternion.AngleAxis(info.roundSpeed * Time.deltaTime, Vector3.up);
+                transform.rotation *= Quaternion.AngleAxis(info.roundSpeed * Time.deltaTime, Vector3.up);
                 break;
             case 4:
-                this.transform.rotation *= Quaternion.AngleAxis(-info.roundSpeed * Time.deltaTime, Vector3.up);
+                transform.rotation *= Quaternion.AngleAxis(-info.roundSpeed * Time.deltaTime, Vector3.up);
                 break;
             case 5:
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
-                                                            Quaternion.LookRotation(PlayerObject.Instance.transform.position - this.transform.position),
-                                                            Time.deltaTime * info.roundSpeed);
+                if (PlayerObject.Instance != null)
+                {
+                    Vector3 dir = PlayerObject.Instance.transform.position - transform.position;
+                    transform.rotation = Quaternion.Slerp(transform.rotation,
+                        Quaternion.LookRotation(dir), Time.deltaTime * info.roundSpeed);
+                }
                 break;
         }
-        Destroy(this.gameObject, info.lifeTime);
+    }
+
+    void OnDisable()
+    {
+        CancelInvoke();
+        time = 0;
     }
 }

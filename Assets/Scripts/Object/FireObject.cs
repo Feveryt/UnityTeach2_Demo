@@ -155,15 +155,19 @@ public class FireObject : MonoBehaviour
             return;
         }
         GameObject bullet;
-        BulletObject bulletObj;
+        // BulletObject bulletObj;
         switch (fireInfo.type)
         {
             case 1:
-                bullet = Instantiate(Resources.Load<GameObject>(nowBulletInfo.resName));
-                bulletObj = bullet.AddComponent<BulletObject>();
-                bulletObj.InitInfo(nowBulletInfo);
-                bullet.transform.position = this.transform.position;
-                bullet.transform.rotation = Quaternion.LookRotation(PlayerObject.Instance.transform.position - this.transform.position);
+                //TODO:Pool子弹
+                //引入对象池之前
+                // bullet = Instantiate(Resources.Load<GameObject>(nowBulletInfo.resName));
+                bullet = BulletPoolManager.Instance.GetBullet(nowBulletInfo.resName, this.transform.position, Quaternion.LookRotation(PlayerObject.Instance.transform.position - this.transform.position));
+                bullet.GetComponent<BulletObject>().InitInfo(nowBulletInfo, nowBulletInfo.resName);
+                // bulletObj = bullet.AddComponent<BulletObject>();
+                // bulletObj.InitInfo(nowBulletInfo);
+                // bullet.transform.position = this.transform.position;
+                // bullet.transform.rotation = Quaternion.LookRotation(PlayerObject.Instance.transform.position - this.transform.position);
                 --nowNum;
                 nowCD = nowNum == 0 ? 0 : fireInfo.cd;
                 break;
@@ -172,24 +176,40 @@ public class FireObject : MonoBehaviour
                 {
                     for (int i = 0; i < nowNum; i++)
                     {
-                        bullet = Instantiate(Resources.Load<GameObject>(nowBulletInfo.resName));
-                        bulletObj = bullet.AddComponent<BulletObject>();
-                        bulletObj.InitInfo(nowBulletInfo);
-                        bullet.transform.position = this.transform.position;
+                        // TODO:Pool子弹
+                        // bullet = Instantiate(Resources.Load<GameObject>(nowBulletInfo.resName));
                         nowDir = Quaternion.AngleAxis(changeAngle * i, Vector3.up) * initDir;
-                        bullet.transform.rotation = Quaternion.LookRotation(nowDir);
+                        bullet = BulletPoolManager.Instance.GetBullet(nowBulletInfo.resName, this.transform.position, Quaternion.LookRotation(nowDir));
+                        bullet.GetComponent<BulletObject>().InitInfo(nowBulletInfo, nowBulletInfo.resName);
+                        // bulletObj = bullet.AddComponent<BulletObject>();
+                        // bulletObj.InitInfo(nowBulletInfo);
+                        // bullet.transform.position = this.transform.position;
+                        // nowDir = Quaternion.AngleAxis(changeAngle * i, Vector3.up) * initDir;
+                        // bullet.transform.rotation = Quaternion.LookRotation(nowDir);
+
+
+
+
+
+                        // 不相干的代码
                         // bullet.transform.rotation = Quaternion.LookRotation(Quaternion.AngleAxis(changeAngle * (i + 1), Vector3.up) * initDir);
                     }
                     nowCD = nowNum = 0;
                 }
                 else
                 {
-                    bullet = Instantiate(Resources.Load<GameObject>(nowBulletInfo.resName));
-                    bulletObj = bullet.AddComponent<BulletObject>();
-                    bulletObj.InitInfo(nowBulletInfo);
-                    bullet.transform.position = this.transform.position;
+                    // TODO:Pool子弹
+                    //引入对象池之前
+                    // bullet = Instantiate(Resources.Load<GameObject>(nowBulletInfo.resName));
                     nowDir = Quaternion.AngleAxis(changeAngle * (fireInfo.num - nowNum), Vector3.up) * initDir;
-                    bullet.transform.rotation = Quaternion.LookRotation(nowDir);
+                    //对象池获取子弹
+                    bullet = BulletPoolManager.Instance.GetBullet(nowBulletInfo.resName, this.transform.position, Quaternion.LookRotation(nowDir));
+                    bullet.GetComponent<BulletObject>().InitInfo(nowBulletInfo, nowBulletInfo.resName);
+                    // bulletObj = bullet.AddComponent<BulletObject>();
+                    // bulletObj.InitInfo(nowBulletInfo);
+                    // bullet.transform.position = this.transform.position;
+                    // nowDir = Quaternion.AngleAxis(changeAngle * (fireInfo.num - nowNum), Vector3.up) * initDir;
+                    // bullet.transform.rotation = Quaternion.LookRotation(nowDir);
                     --nowNum;
                     nowCD = nowNum == 0 ? 0 : fireInfo.cd;
                 }
