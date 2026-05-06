@@ -1,6 +1,6 @@
 # 弹幕射击 STG · Bullet Hell Shooter
 
-> **Unity 2D 飞机大战 | 核心开发 | [你的名字]**
+> Unity 2D 飞机大战 | 核心开发 | 
 
 ![Gameplay](Demo/demo.gif)
 
@@ -28,7 +28,7 @@
 
 | 类别 | 技术 |
 |:---|:---|
-| **引擎** | Unity 2021.3 LTS |
+| **引擎** | Unity 2023.2.20 |
 | **编程语言** | C# |
 | **性能优化** | Unity ObjectPool、GC 优化 |
 | **数据配置** | XML 序列化/反序列化 |
@@ -37,6 +37,6 @@
 | **音频** | AudioSource + 全局管理器 |
 | **版本控制** | Git / GitHub |
 
-## B站链接
+## B站演示视频链接
 
 - https://www.bilibili.com/video/BV1L6RsBeEKC/
