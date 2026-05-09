@@ -35,7 +35,7 @@
 | **UI 框架** | UGUI + 泛型单例面板基类 |
 | **输入系统** | 旧版 Input Manager |
 | **音频** | AudioSource + 全局管理器 |
-| **版本控制** | Git / GitHub |
+| **版本控制** |GitHub |
 
 ## B站演示视频链接
 
