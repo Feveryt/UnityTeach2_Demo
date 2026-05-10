@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2447196395994248452}
   - component: {fileID: 1656211183459766583}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,6 +65,22 @@ PrefabInstance:
     - target: {fileID: 100000, guid: ba2aede8bc059f741961151f4bbdb31f, type: 3}
       propertyPath: m_Name
       value: FireDome
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ba2aede8bc059f741961151f4bbdb31f, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: ba2aede8bc059f741961151f4bbdb31f, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: ba2aede8bc059f741961151f4bbdb31f, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 153798, guid: ba2aede8bc059f741961151f4bbdb31f, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ba2aede8bc059f741961151f4bbdb31f, type: 3}
       propertyPath: m_LocalScale.x

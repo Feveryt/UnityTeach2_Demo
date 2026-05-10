@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2993153701139460962}
   - component: {fileID: 1949303855456685250}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,9 +62,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2993153701139460962}
     m_Modifications:
+    - target: {fileID: 100000, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
       propertyPath: m_Name
       value: ArcaneDome
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 115124, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: fd94e570fa7cd8b46b9e2e85bf3beb23, type: 3}
       propertyPath: m_LocalScale.x
